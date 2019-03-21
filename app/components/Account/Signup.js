@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux'
 import { signup } from '../../actions/auth';
-import { facebookLogin, twitterLogin, googleLogin, vkLogin, githubLogin } from '../../actions/oauth';
 import Messages from '../Messages';
 
 class Signup extends React.Component {
@@ -20,26 +19,6 @@ class Signup extends React.Component {
     this.props.dispatch(signup(this.state.name, this.state.email, this.state.password));
   }
 
-  handleFacebook() {
-    this.props.dispatch(facebookLogin())
-  }
-
-  handleTwitter() {
-    this.props.dispatch(twitterLogin())
-  }
-
-  handleGoogle() {
-    this.props.dispatch(googleLogin())
-  }
-
-  handleVk() {
-    this.props.dispatch(vkLogin())
-  }
-
-  handleGithub() {
-    this.props.dispatch(githubLogin())
-  }
-
   render() {
     return (
       <div className="login-container container">
@@ -47,7 +26,7 @@ class Signup extends React.Component {
           <div className="panel-body">
             <Messages messages={this.props.messages}/>
             <form onSubmit={this.handleSignup.bind(this)}>
-              <legend>Create an account</legend>
+              <legend>Create a student?</legend>
               <div className="form-group">
                 <label htmlFor="name">Name</label>
                 <input type="text" name="name" id="name" placeholder="Name" autoFocus className="form-control" value={this.state.name} onChange={this.handleChange.bind(this)}/>

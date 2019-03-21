@@ -38,6 +38,7 @@ export function login(email, password) {
 }
 
 export function signup(name, email, password) {
+  console.log("signing up...")
   return (dispatch) => {
     dispatch({
       type: 'CLEAR_MESSAGES'
