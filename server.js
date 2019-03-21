@@ -28,6 +28,7 @@ require('babel-polyfill');
 
 // Models
 var User = require('./models/User');
+// var Student = require('./models/Student')
 
 // Controllers
 var userController = require('./controllers/user');

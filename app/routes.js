@@ -10,6 +10,7 @@ import Profile from './components/Account/Profile';
 import Forgot from './components/Account/Forgot';
 import Reset from './components/Account/Reset';
 import StudentDisplay from './components/StudentDisplay';
+import NewStudent from './components/NewStudent';
 
 export default function getRoutes(store) {
   const ensureAuthenticated = (nextState, replace) => {
@@ -31,7 +32,8 @@ export default function getRoutes(store) {
     <Route path="/" component={App}>
       <IndexRoute component={Home} onLeave={clearMessages}/>
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>
-      <Route path="/student" component={StudentDisplay} onLeave={clearMessages}/>
+      <Route exact path="/student" component={StudentDisplay} onLeave={clearMessages}/>
+      <Route exact path="/student/new" component={NewStudent} onLeave={clearMessages}/>
       <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/signup" component={Signup} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/account" component={Profile} onEnter={ensureAuthenticated} onLeave={clearMessages}/>
