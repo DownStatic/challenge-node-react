@@ -20,7 +20,14 @@ class NewStudent extends Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(this.state)
     })
-    .then(res => console.log(res))
+    .then(res => res.json())
+    .then(parse => console.log(parse))
+  }
+
+  getStudents(){
+    fetch(createStudent)
+    .then(res => res.json())
+    .then(parse => console.log(parse))
   }
 
   render() {
@@ -55,6 +62,9 @@ class NewStudent extends Component {
               </div>
             </form>
           </div>
+        </div>
+        <div className="panel">
+          <button className="btn" onClick={this.getStudents}>Get Students</button>
         </div>
       </div>
     );

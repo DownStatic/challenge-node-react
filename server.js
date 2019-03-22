@@ -76,26 +76,26 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res, next) {
-  req.isAuthenticated = function() {
-    var token = (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.cookies.token;
-    try {
-      return jwt.verify(token, process.env.TOKEN_SECRET);
-    } catch (err) {
-      return false;
-    }
-  };
-
-  if (req.isAuthenticated()) {
-    var payload = req.isAuthenticated();
-    User.findById(payload.sub, function(err, user) {
-      req.user = user;
-      next();
-    });
-  } else {
-    next();
-  }
-});
+// app.use(function(req, res, next) {
+//   req.isAuthenticated = function() {
+//     var token = (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.cookies.token;
+//     try {
+//       return jwt.verify(token, process.env.TOKEN_SECRET);
+//     } catch (err) {
+//       return false;
+//     }
+//   };
+//
+//   if (req.isAuthenticated()) {
+//     var payload = req.isAuthenticated();
+//     User.findById(payload.sub, function(err, user) {
+//       req.user = user;
+//       next();
+//     });
+//   } else {
+//     next();
+//   }
+// });
 
 if (app.get('env') === 'development') {
   app.use(require('webpack-dev-middleware')(compiler, {
@@ -114,6 +114,7 @@ app.post('/forgot', userController.forgotPost);
 app.post('/reset/:token', userController.resetPost);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
 app.post('/students', studentController.createStudent)
+app.get('/students', studentController.allStudents)
 
 // React server rendering
 app.use(function(req, res) {
