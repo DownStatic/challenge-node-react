@@ -28,7 +28,7 @@ require('babel-polyfill');
 
 // Models
 var User = require('./models/User');
-// var Student = require('./models/Student')
+var Student = require('./models/Student')
 
 // Controllers
 var userController = require('./controllers/user');
@@ -112,6 +112,7 @@ app.post('/login', userController.loginPost);
 app.post('/forgot', userController.forgotPost);
 app.post('/reset/:token', userController.resetPost);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
+app.post('/students', studentController.createStudent)
 
 // React server rendering
 app.use(function(req, res) {

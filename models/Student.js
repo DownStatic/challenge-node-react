@@ -1,30 +1,34 @@
 import mongoose, { Schema } from 'mongoose'
 
-const StudentSchema = new Schema({
+const Student = new Schema({
   firstname: {
-    type: string,
+    type: String,
     required: true
   },
   surname: {
-    type: string,
+    type: String,
     required: true
   },
   age: {
-    type: string,
+    type: String,
     required: true
   },
   grade: {
-    type: string,
+    type: String,
     required: true
   },
   email: {
-    type: string,
+    type: String,
     required: true
   },
-  date: {
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  updated: {
     type: Date,
     default: Date.now
   }
 })
 
-module.exports = Student = mongoose.model("students", StudentSchema)
+module.exports = mongoose.model("Student", Student)

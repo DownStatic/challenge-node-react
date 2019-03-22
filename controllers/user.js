@@ -62,10 +62,6 @@ exports.ensureAuthenticated = function(req, res, next) {
  * POST /signup
  */
 exports.signupPost = function(req, res, next) {
-  console.log("hit the signup post!")
-  console.log(req)
-  console.log(res)
-  console.log(next)
   req.assert('name', 'Name cannot be blank').notEmpty();
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('email', 'Email cannot be blank').notEmpty();

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+const createStudent = 'http://localhost:3000/students'
+
 class NewStudent extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +15,15 @@ class NewStudent extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    fetch(createStudent, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    })
+    .then()
   }
 
   render() {
