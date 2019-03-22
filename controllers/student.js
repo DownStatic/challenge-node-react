@@ -3,7 +3,7 @@ var Student = require('../models/Student')
 
 exports.allStudents = (req, res, next) => {
   console.log("pulling student data")
-  Student.find({firstname: "test"}).then((students) => {
+  Student.find({}).then((students) => {
     console.log("student data found")
     res.send(students)
   })

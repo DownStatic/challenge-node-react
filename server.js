@@ -43,15 +43,16 @@ var app = express();
 
 var compiler = webpack(config);
 
-mongoose.connect(process.env.MONGODB);
+mongoose.connect(process.env.MONGODB, function(error){
+  if(error){
+    console.log(error)
+  }
+})
 mongoose.Promise = require('bluebird')
 mongoose.connection.on('error', function() {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);
 });
-mongoose.connection.on('connect', () => {
-  console.log("MongoDB connection successful");
-})
 
 var hbs = exphbs.create({
   defaultLayout: 'main',
