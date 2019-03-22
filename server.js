@@ -33,6 +33,7 @@ var Student = require('./models/Student')
 // Controllers
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
+var studentController = require('./controllers/student')
 
 // React and Server-Side Rendering
 var routes = require('./app/routes');

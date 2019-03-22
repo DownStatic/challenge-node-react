@@ -18,12 +18,9 @@ class NewStudent extends Component {
     fetch(createStudent, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
+      body: JSON.stringify(this.state)
     })
-    .then()
+    .then(res => console.log(res))
   }
 
   render() {
