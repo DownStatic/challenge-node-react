@@ -34,7 +34,7 @@ exports.createStudent = (req, res, next) => {
     student.save()
     .then(res.send(student))
     .catch(err => {
-      res.status(400).send('unable to add student');
+      console.log(err)
     })
   }
 }

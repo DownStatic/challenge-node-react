@@ -39,11 +39,11 @@ class NewStudent extends Component {
               <legend>Create a Student Record</legend>
               <div className="form-group">
                 <label htmlFor="firstname">First Name</label>
-                <input type="text" name="firstname" id="firstname" placeholder="Jane" className="form-control" autoFocus value={this.state.firstname} onChange={this.handleChange.bind(this)}/>
+                <input type="text" name="firstname" id="firstname" placeholder="Jane" className="form-control" required autoFocus value={this.state.firstname} onChange={this.handleChange.bind(this)}/>
               </div>
               <div className="form-group">
                 <label htmlFor="surname">Last Name</label>
-                <input type="text" name="surname" id="surname" placeholder="Doe" className="form-control" value={this.state.lastname} onChange={this.handleChange.bind(this)}/>
+                <input type="text" name="surname" id="surname" placeholder="Doe" className="form-control" required value={this.state.lastname} onChange={this.handleChange.bind(this)}/>
               </div>
               <div className="form-group">
                 <label htmlFor="email">Email Address</label>
@@ -55,7 +55,7 @@ class NewStudent extends Component {
               </div>
               <div className="form-group">
                 <label htmlFor="grade">Grade</label>
-                <input type="number" name="grade" id="grade" className="form-control" value={this.state.grade} onChange={this.handleChange.bind(this)}/>
+                <input type="number" name="grade" id="grade" className="form-control" value={this.state.grade} min="1" max="12" onChange={this.handleChange.bind(this)}/>
               </div>
               <div className="form-group">
                 <button type="submit" className="btn btn-success">Create Student</button>
