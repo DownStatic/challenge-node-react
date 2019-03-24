@@ -1,39 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import Messages from './Messages';
 
 class Home extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <Messages messages={this.props.messages}/>
         <div className="row">
           <div className="col-sm-4">
             <div className="panel">
               <div className="panel-body">
-                <h3>Heading</h3>
-                <p>This app is for users.</p>
-                <a href="#" role="button" className="btn btn-default">View details</a>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm-4">
-            <div className="panel">
-              <div className="panel-body">
-                <h3>Heading</h3>
-                <p>The required app is for students.</p>
-                <a href="#" role="button" className="btn btn-default">View details</a>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm-4">
-            <div className="panel">
-              <div className="panel-body">
-                <h3>Heading</h3>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                  mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-                  mollis euismod. Donec sed odio dui.</p>
-                <a href="#" role="button" className="btn btn-default">View details</a>
+                <h3>Welcome to the student record system!</h3>
+                <p>View the student roster above. Records can be edited from the roster screen. To register a new student, please use the registration form linked above.</p>
               </div>
             </div>
           </div>

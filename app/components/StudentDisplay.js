@@ -1,38 +1,59 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-let student = {
-  firstname: "Suzaku",
-  surname: "Kururugi",
-  email: "lancelot@brittania.gov",
-  age: "17",
-  grade: "11th"
-}
-
 class StudentDisplay extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { password: '', confirm: '' };
+    this.state = {students:[]};
   }
 
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+  componentDidMount() {
+    fetch('http://localhost:3000/students')
+    .then(res => res.json())
+    .then(results => {
+      this.setState({students: results})
+    })
   }
 
-  handleReset(event) {
-    event.preventDefault();
+  addSuffix(grade){
+    switch(grade) {
+      case "1":
+        return "1st"
+      case "2":
+        return "2nd"
+      case "3":
+        return "3rd"
+      default:
+        return `${grade}th`
+    }
   }
 
   render() {
     return (
       <div className="container">
         <div className="panel">
-          <div className="panel-body">
-            <p>Name: {student.firstname + " " + student.surname}</p>
-            <p>Age: {student.age}</p>
-            <p>Grade: {student.grade}</p>
-            <p>Email: {student.email}</p>
-          </div>
+          <table className="table table-striped table-responsive table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+            {this.state.students.map(student => {
+              return(
+                <tr key={student._id}>
+                  <td>{student.firstname + " " + student.surname}</td>
+                  <td>{student.age}</td>
+                  <td>{this.addSuffix(student.grade)}</td>
+                  <td>{student.email}</td>
+                </tr>
+              )
+            })}
+            </tbody>
+          </table>
         </div>
       </div>
     );
