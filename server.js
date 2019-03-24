@@ -120,6 +120,7 @@ app.post('/reset/:token', userController.resetPost);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
 app.post('/students', studentController.createStudent)
 app.get('/students', studentController.allStudents)
+app.patch('/students/:id', studentController.updateStudent)
 
 // React server rendering
 app.use(function(req, res) {

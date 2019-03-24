@@ -38,3 +38,25 @@ exports.createStudent = (req, res, next) => {
     })
   }
 }
+
+exports.updateStudent = (req, res, next) => {
+  let sentStudent = {
+    firstname: req.body.firstname,
+    surname: req.body.surname,
+    email: req.body.email,
+    age: req.body.age,
+    grade: req.body.grade
+  }
+  let foundStudent = Student.findById(req.params.id, function(err,foundStudent){
+    foundStudent.firstname = req.body.firstname
+    foundStudent.surname = req.body.surname
+    foundStudent.email = req.body.email
+    foundStudent.age = req.body.age
+    foundStudent.grade = req.body.grade
+    foundStudent.save()
+    .then(res.send(foundStudent))
+    .catch(err => {
+      console.log(err);
+    })
+  })
+}

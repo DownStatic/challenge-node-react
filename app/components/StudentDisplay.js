@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+const updatePath = 'http://localhost:3000/students/'
+
 class StudentDisplay extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +39,7 @@ class StudentDisplay extends React.Component {
 
   selectStudent(event){
     let selectedStudent = this.state.students.find(student => student._id === event.target.dataset.id)
-    this.setState({selected: selectedStudent})
+    this.setState({selected: selectedStudent, updated: selectedStudent})
   }
 
   handleChange(event){
@@ -52,7 +54,13 @@ class StudentDisplay extends React.Component {
   }
 
   updateStudent(){
-    console.log(this.state.updated);
+    fetch(`${updatePath + this.state.updated._id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(this.state.updated)
+    })
+    .then(res => res.json())
+    .then(parsed => console.log(parsed))
   }
 
   render() {
@@ -88,12 +96,12 @@ class StudentDisplay extends React.Component {
                 return(
                   <tr key={student._id}>
                     <td>
-                      <input type="text" name="firstname" placeholder={student.firstname} onChange={this.handleChange}/>
-                      <input type="text" name="surname" placeholder={student.surname} onChange={this.handleChange}/>
+                      <input type="text" name="firstname" onChange={this.handleChange} value={this.state.updated.firstname}/>
+                      <input type="text" name="surname" onChange={this.handleChange} value={this.state.updated.surname}/>
                     </td>
-                    <td><input type="number" name="age" placeholder={student.age} onChange={this.handleChange} /></td>
-                    <td><input type="number" name="grade" placeholder={student.grade} onChange={this.handleChange}/></td>
-                    <td><input type="text" name="email" placeholder={student.email} onChange={this.handleChange}/></td>
+                    <td><input type="number" name="age" onChange={this.handleChange} value={this.state.updated.age}/></td>
+                    <td><input type="number" name="grade" onChange={this.handleChange} value={this.state.updated.grade}/></td>
+                    <td><input type="text" name="email" onChange={this.handleChange} value={this.state.updated.email}/></td>
                     <td>
                       <button className="btn btn-info" onClick={this.updateStudent}>Update</button>
                     </td>
