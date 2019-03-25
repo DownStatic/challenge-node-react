@@ -20,14 +20,11 @@ class NewStudent extends Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(this.state)
     })
-    .then(res => res.json())
-    .then(parse => console.log(parse))
-  }
-
-  getStudents(){
-    fetch(createStudent)
-    .then(res => res.json())
-    .then(parse => console.log(parse))
+    .then(res => {
+    if(res.status === 200){
+      return res.json()
+    }})
+    .then(parse => alert(`Student ${parse.firstname} ${parse.surname} has beeen successfully created.`))
   }
 
   render() {
