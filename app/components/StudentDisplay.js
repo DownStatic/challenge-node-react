@@ -19,6 +19,7 @@ class StudentDisplay extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.deleteStudent = this.deleteStudent.bind(this)
     this.showConfirm = this.showConfirm.bind(this)
+    this.cancelDelete = this.cancelDelete.bind(this)
   }
 
   componentDidMount() {
@@ -53,7 +54,6 @@ class StudentDisplay extends React.Component {
     let change = {[key]: val}
     this.setState(currentState => {
       let newUpdate = Object.assign(currentState.updated, change)
-      console.log(newUpdate)
       return Object.assign(currentState, {updated:newUpdate})
     })
   }
@@ -65,7 +65,10 @@ class StudentDisplay extends React.Component {
       body: JSON.stringify(this.state.updated)
     })
     .then(res => res.json())
-    .then(parsed => console.log(parsed))
+    .then(parsed => {
+      this.setState({selected: {}})
+      alert(`${parsed.firstname} ${parsed.surname} hase been updated.`)
+    })
   }
 
   deleteStudent(event){
@@ -74,7 +77,14 @@ class StudentDisplay extends React.Component {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'}
     })
-    .then(this.setState({confirming: false}))
+    .then(() => {
+      let newlist = this.state.students.filter(s => s._id !== id)
+      this.setState({confirming: false, students: newlist})
+    })
+  }
+
+  cancelDelete(){
+    this.setState({confirming: false})
   }
 
   showConfirm(event){
@@ -84,9 +94,13 @@ class StudentDisplay extends React.Component {
 
   render() {
     let modal = ""
-    if(this.state.confirming){modal = <Confirm />}
+    if(this.state.confirming){
+      let student = this.state.students.find(s => s._id === this.state.tbd)
+      modal = <Confirm student={student} deleteStudent={this.deleteStudent} cancelDelete={this.cancelDelete} />
+    }
     return (
-      <div>{modal}
+      <div>
+        {modal}
         <div className="container">
           <div className="panel">
             <table className="table table-striped table-responsive table-bordered">
