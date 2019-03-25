@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-const updatePath = 'http://localhost:3000/students/'
+const basePath = 'http://localhost:3000/students/'
 
 class StudentDisplay extends React.Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class StudentDisplay extends React.Component {
     this.selectStudent = this.selectStudent.bind(this)
     this.updateStudent = this.updateStudent.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.deleteStudent = this.deleteStudent.bind(this)
   }
 
   componentDidMount() {
@@ -54,10 +55,20 @@ class StudentDisplay extends React.Component {
   }
 
   updateStudent(){
-    fetch(`${updatePath + this.state.updated._id}`, {
+    fetch(`${basePath + this.state.updated._id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(this.state.updated)
+    })
+    .then(res => res.json())
+    .then(parsed => console.log(parsed))
+  }
+
+  deleteStudent(event){
+    let id = event.target.dataset.id
+    fetch(`${basePath + id}`, {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'}
     })
     .then(res => res.json())
     .then(parsed => console.log(parsed))
@@ -88,7 +99,7 @@ class StudentDisplay extends React.Component {
                   <td>{student.email}</td>
                   <td>
                     <button className="btn btn-primary" data-id={student._id} onClick={this.selectStudent}>Edit</button>
-                    <button className="btn btn-danger">Delete</button>
+                    <button className="btn btn-danger" data-id={student._id} onClick={this.deleteStudent}>Delete</button>
                   </td>
                 </tr>
               )}

@@ -60,3 +60,14 @@ exports.updateStudent = (req, res, next) => {
     })
   })
 }
+
+exports.deleteStudent = (req, res, next) => {
+  let foundStudent = Student.findById(req.params.id, function(err, foundStudent){
+    console.log(foundStudent);
+    Student.deleteOne({_id: req.params.id})
+    .then(res.send(foundStudent))
+    .catch(err => {
+      console.log(err)
+    })
+  })
+}
