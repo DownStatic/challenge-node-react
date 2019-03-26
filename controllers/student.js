@@ -14,6 +14,8 @@ exports.createStudent = (req, res, next) => {
   req.assert('surname', 'Surname is required').notEmpty();
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('email', 'Email cannot be blank').notEmpty();
+  req.assert('age', 'Age must be a number').isNumeric();
+  req.assert('grade', 'Grade must be a number').isNumeric();
   req.sanitize('email').normalizeEmail({ remove_dots: false });
 
   let errors = req.validationErrors();
