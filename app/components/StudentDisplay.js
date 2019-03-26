@@ -27,7 +27,7 @@ class StudentDisplay extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/students')
+    fetch(basePath)
     .then(res => res.json())
     .then(results => {
       this.setState({students: results})
