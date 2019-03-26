@@ -52,6 +52,9 @@ class StudentDisplay extends React.Component {
     this.setState({selected: selectedStudent, updated: selectedStudent})
   }
 
+  // Since the values for updated are nested in state, it's necessary to
+  // utilize Object.assign in order to properly update the the state
+  // when staging student record changes.
   handleChange(event){
     let key = event.target.name
     let val = event.target.value
@@ -66,6 +69,7 @@ class StudentDisplay extends React.Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
+  // Since there is validation on student updates, this is a pessimistic render.
   updateStudent(){
     fetch(`${basePath + this.state.updated._id}`, {
       method: 'PATCH',
@@ -79,6 +83,7 @@ class StudentDisplay extends React.Component {
     })
   }
 
+  // Send the delete to the appropriate student record and optimistically render
   deleteStudent(event){
     let id = event.target.dataset.id
     fetch(`${basePath + id}`, {
@@ -100,6 +105,7 @@ class StudentDisplay extends React.Component {
     this.setState({tbd: id, confirming: true})
   }
 
+  // Search criteria are matched against all student fields visible to the user.
   filterByString(students){
     let filter = this.state.filter.toLowerCase()
     return students.filter(s => {
@@ -107,6 +113,9 @@ class StudentDisplay extends React.Component {
     })
   }
 
+  // If there is a pending delete, the modal shows above the student list.
+  // Students are rendered based on whether they are being updated or not. Only one
+  // student may be updated at a time.
   render() {
     let modal = ""
     if(this.state.confirming){
