@@ -79,7 +79,7 @@ class StudentDisplay extends React.Component {
     .then(res => res.json())
     .then(parsed => {
       this.setState({selected: {}})
-      alert(`${parsed.firstname} ${parsed.surname} hase been updated.`)
+      alert(`${parsed.firstname} ${parsed.surname} has been updated.`)
     })
   }
 
