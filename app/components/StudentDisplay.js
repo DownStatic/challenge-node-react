@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Confirm from './Modular/Confirm'
 
-const basePath = 'http://localhost:3000/students/'
+const basePath = 'https://andculture-challenge.herokuapp.com/students/'
 
 class StudentDisplay extends React.Component {
   constructor(props) {
