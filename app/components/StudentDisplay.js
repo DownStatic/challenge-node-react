@@ -9,6 +9,8 @@ class StudentDisplay extends React.Component {
     super(props);
     this.state = {
       students:[],
+      filter: "",
+      filtered: [],
       selected:{},
       updated:{},
       tbd: "",
@@ -17,9 +19,11 @@ class StudentDisplay extends React.Component {
     this.selectStudent = this.selectStudent.bind(this)
     this.updateStudent = this.updateStudent.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleFilter = this.handleFilter.bind(this)
     this.deleteStudent = this.deleteStudent.bind(this)
     this.showConfirm = this.showConfirm.bind(this)
     this.cancelDelete = this.cancelDelete.bind(this)
+    this.filterByString = this.filterByString.bind(this)
   }
 
   componentDidMount() {
@@ -58,6 +62,10 @@ class StudentDisplay extends React.Component {
     })
   }
 
+  handleFilter(event){
+    this.setState({[event.target.name]: event.target.value})
+  }
+
   updateStudent(){
     fetch(`${basePath + this.state.updated._id}`, {
       method: 'PATCH',
@@ -92,6 +100,13 @@ class StudentDisplay extends React.Component {
     this.setState({tbd: id, confirming: true})
   }
 
+  filterByString(students){
+    let filter = this.state.filter.toLowerCase()
+    return students.filter(s => {
+      return s.firstname.toLowerCase().includes(filter) || s.surname.toLowerCase().includes(filter) || s.email.toLowerCase().includes(filter) || s.age.includes(filter) || s.grade.includes(filter)
+    })
+  }
+
   render() {
     let modal = ""
     if(this.state.confirming){
@@ -103,6 +118,9 @@ class StudentDisplay extends React.Component {
         {modal}
         <div className="container">
           <div className="panel">
+            <center>
+              <input type="text" name="filter" placeholder="Search students" onChange={this.handleFilter} />
+            </center>
             <table className="table table-striped table-responsive table-bordered">
               <thead>
                 <tr>
@@ -114,7 +132,7 @@ class StudentDisplay extends React.Component {
                 </tr>
               </thead>
               <tbody>
-              {this.state.students.map(student => {
+              {this.filterByString(this.state.students).map(student => {
                 if (this.state.selected !== student){
                 return(
                   <tr key={student._id}>

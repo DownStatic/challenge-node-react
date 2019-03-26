@@ -10,7 +10,10 @@ class NewStudent extends Component {
   }
 
   handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    if(event.target.name === 'age' || event.target.name === 'grade'){
+      this.setState({ [event.target.name]: Number(event.target.value) })
+    }
+    else(this.setState({ [event.target.name]: event.target.value }))
   }
 
   handleSubmit(event) {

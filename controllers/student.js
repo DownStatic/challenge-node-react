@@ -21,6 +21,8 @@ exports.createStudent = (req, res, next) => {
   let errors = req.validationErrors();
 
   if (errors) {
+    console.log(req.body);
+    console.log(errors);
     return res.status(400).send(errors);
   }
   else {
